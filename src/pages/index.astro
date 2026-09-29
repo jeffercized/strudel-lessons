@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { sortLessons } from '../lib/lessons';
+import { lessonSections } from '../lib/progress';
+const lessons = await Promise.all(
+  sortLessons(await getCollection('lessons')).map(async (l) => ({ ...l, sections: lessonSections((await render(l)).headings) })),
+);
+---
+<Base title="Strudel Lessons">
+  <h1>Strudel Lessons</h1>
+  <ol class="lesson-list">
+    {lessons.map((l) => (
+      <li>
+        <a href={`/lessons/${l.id}/`}>
+          <strong>{l.data.number}. {l.data.title}</strong>
+          <span class="done-mark" data-done-mark={l.id} hidden>✓</span>
+          {l.sections.length > 0 && (
+            <span class="section-progress" data-section-progress={l.id} data-slugs={JSON.stringify(l.sections.map((s) => s.slug))}>
+              0 / {l.sections.length}
+            </span>
+          )}
+          <div class="goal">{l.data.goal}</div>
+        </a>
+      </li>
+    ))}
+  </ol>
+  <script>import '../scripts/done.ts';</script>
+</Base>

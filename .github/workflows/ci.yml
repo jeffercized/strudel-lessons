@@ -1,0 +1,35 @@
+name: The Bouncer
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      # Node version comes from "engines.node" in package.json (same one Vercel uses).
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: package.json
+          cache: npm
+
+      - run: npm ci
+
+      # Code style and common mistakes.
+      - run: npm run lint
+
+      # TypeScript and Astro type errors.
+      - run: npm run typecheck
+
+      # Unit tests: grid timing, storage, links, markdown plugins.
+      - run: npm test
+
+      # Builds the static site. It never deploys.
+      - run: npm run build

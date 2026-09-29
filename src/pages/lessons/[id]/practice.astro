@@ -1,0 +1,33 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import DrillTemplates from '../../../components/practice/DrillTemplates.astro';
+import Base from '../../../layouts/Base.astro';
+import { STRUDEL_REPL_INTEGRITY, STRUDEL_REPL_URL } from '../../../lib/strudel-version';
+import '../../../styles/practice.css';
+
+// The Mixed review: only lessons whose practice JSON has review items get this page.
+export async function getStaticPaths() {
+  const practice = (await getCollection('practice')).filter((p) => p.data.review.length > 0);
+  return Promise.all(
+    practice.map(async (entry) => {
+      const lesson = await getEntry('lessons', entry.data.lesson);
+      if (!lesson) throw new Error(`${entry.id}.practice.json: no lesson called "${entry.data.lesson}"`);
+      return { params: { id: lesson.id }, props: { review: entry.data.review, lesson } };
+    }),
+  );
+}
+const { review, lesson } = Astro.props;
+---
+<Base title={`Mixed review: ${lesson.data.number}. ${lesson.data.title}`}>
+  <script is:inline slot="head" src={STRUDEL_REPL_URL} integrity={STRUDEL_REPL_INTEGRITY} crossorigin="anonymous"></script>
+  <p><a href={`/lessons/${lesson.id}/`}>← Back to lesson {lesson.data.number}</a></p>
+  <div class="practice">
+    <h1>Mixed review</h1>
+    <p class="practice__lede">{lesson.data.number}. {lesson.data.title}: {review.length} items from the whole lesson, in a new order each time.</p>
+    <div class="review" data-review></div>
+    <p class="practice__keys">Keys: <kbd>Enter</kbd> checks your line. <kbd>⌘</kbd>/<kbd>Ctrl</kbd>+<kbd>Enter</kbd> plays it.</p>
+  </div>
+  <script is:inline type="application/json" id="practice-data" set:html={JSON.stringify({ lesson: lesson.id, review }).replace(/</g, '\\u003c')} />
+  <DrillTemplates />
+  <script>import '../../../scripts/review.ts';</script>
+</Base>

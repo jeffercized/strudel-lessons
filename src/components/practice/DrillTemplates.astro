@@ -1,0 +1,90 @@
+---
+// One <template> per drill type. The runner (src/scripts/practice/runner.ts) clones one per item.
+// To remove a drill: delete its <template> here, its script, and its line in runner.ts.
+---
+<template data-drill="read">
+  <div class="drill-item">
+    <p class="drill__hint">Tap any part of the line.</p>
+    <div class="codeline" data-read="line"></div>
+    <div class="explain" data-read="explain" aria-live="polite"></div>
+    <div class="drill__row">
+      <button type="button" class="play" data-read="play" aria-pressed="false">Play this line</button>
+    </div>
+    <div class="quiz">
+      <div class="drill__row"><h3>Quick check</h3><span class="drill__spacer"></span><span class="counter" data-read="quiz-count"></span></div>
+      <p class="drill__prompt" data-read="quiz-q"></p>
+      <div class="codeline" data-read="quiz-line"></div>
+      <div class="feedback" data-read="quiz-fb" aria-live="polite"></div>
+      <div class="drill__row"><button type="button" data-read="quiz-next">Next question</button></div>
+    </div>
+  </div>
+</template>
+
+<template data-drill="type">
+  <div class="drill-item">
+    <div class="levels" data-type="levels">
+      <button type="button" data-level="trace" aria-pressed="true">1 · Trace</button>
+      <button type="button" data-level="gaps" aria-pressed="false">2 · Fill the gaps</button>
+      <button type="button" data-level="memory" aria-pressed="false">3 · From memory</button>
+    </div>
+    <p class="drill__prompt" data-type="prompt"></p>
+    <div class="target" data-type="target"></div>
+    <input class="line-input" data-type="input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Type the line here" />
+    <div class="feedback" data-type="fb" aria-live="polite"></div>
+    <div class="drill__row">
+      <button type="button" class="play" data-type="play-target" aria-pressed="false">Hear the target</button>
+      <button type="button" class="play" data-type="play-mine" aria-pressed="false">Play my line</button>
+      <button type="button" class="primary" data-type="check">Check</button>
+    </div>
+  </div>
+</template>
+
+<template data-drill="predict">
+  <div class="drill-item">
+    <div class="codeline" data-predict="code"></div>
+    <div class="pgrid" data-predict="grid"></div>
+    <div class="feedback" data-predict="fb" aria-live="polite"></div>
+    <div class="drill__row">
+      <button type="button" class="primary" data-predict="check">Check</button>
+      <button type="button" class="play" data-predict="play" aria-pressed="false" disabled>Play it</button>
+      <button type="button" data-predict="clear">Clear</button>
+    </div>
+  </div>
+</template>
+
+<template data-drill="build">
+  <div class="drill-item">
+    <div data-build="grid"></div>
+    <div class="legend"><span class="legend--target">target</span><span class="legend--match">your hit, correct</span><span class="legend--off">your hit, not in target</span></div>
+    <input class="line-input" data-build="input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Write the code" />
+    <div class="feedback" data-build="fb" aria-live="polite"></div>
+    <div class="drill__row">
+      <button type="button" class="play" data-build="play-target" aria-pressed="false">Hear the target</button>
+      <button type="button" class="play" data-build="play-mine" aria-pressed="false">Play my line</button>
+      <button type="button" data-build="hint">Hint</button>
+    </div>
+  </div>
+</template>
+
+<template data-drill="ear">
+  <div class="drill-item">
+    <div class="drill__row">
+      <button type="button" class="play primary" data-ear="play" aria-pressed="false">Play the mystery beat</button>
+    </div>
+    <div class="choices" data-ear="choices"></div>
+    <div class="feedback" data-ear="fb" aria-live="polite"></div>
+  </div>
+</template>
+
+<template data-drill="fix">
+  <div class="drill-item">
+    <div class="feedback feedback--info" data-fix="says"></div>
+    <input class="line-input" data-fix="input" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Fix the line" />
+    <div class="feedback" data-fix="fb" aria-live="polite"></div>
+    <div class="drill__row">
+      <button type="button" class="primary" data-fix="check">Check</button>
+      <button type="button" data-fix="reset">Reset line</button>
+      <button type="button" data-fix="hint">Hint</button>
+    </div>
+  </div>
+</template>

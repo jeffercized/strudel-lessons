@@ -1,0 +1,384 @@
+{
+  "lesson": "lesson-01-cycles",
+  "checks": {
+    "big-idea": {
+      "section": "The one big idea",
+      "type": "type",
+      "items": [
+        {
+          "code": "s(\"bd sd bd sd\")",
+          "gaps": "s(\"bd sd bd sd\"▢",
+          "description": "Kick, snare, kick, snare: four sounds in one cycle."
+        }
+      ]
+    },
+    "space": {
+      "section": "1. Space: next step",
+      "type": "predict",
+      "items": [
+        {
+          "pattern": "bd sd",
+          "steps": 8
+        },
+        {
+          "pattern": "bd sd bd sd bd sd bd sd",
+          "steps": 8
+        }
+      ]
+    },
+    "rest": {
+      "section": "2. ~ : rest",
+      "type": "build",
+      "items": [
+        {
+          "target": "~ ~ ~ bd",
+          "hint": "Four steps. Rests on the first three, kick on the last."
+        },
+        {
+          "target": "bd ~ ~ bd",
+          "hint": "Kick on beat 1 and beat 4, rests in between."
+        }
+      ]
+    },
+    "star": {
+      "section": "3. * : repeat faster",
+      "type": "ear",
+      "items": [
+        {
+          "answer": "bd*4, hh*8",
+          "decoys": [
+            "bd*4, hh*4",
+            "bd*4, hh*16"
+          ]
+        },
+        {
+          "answer": "hh*3",
+          "decoys": [
+            "hh*4",
+            "hh*6"
+          ]
+        }
+      ]
+    },
+    "brackets": {
+      "section": "4. [ ] : split one step",
+      "type": "predict",
+      "items": [
+        {
+          "pattern": "bd [sd sd] bd sd",
+          "steps": 8
+        },
+        {
+          "pattern": "bd [hh hh hh] bd sd",
+          "steps": 12
+        }
+      ]
+    },
+    "layers": {
+      "section": "5. , : layers",
+      "type": "build",
+      "items": [
+        {
+          "target": "bd*4, ~ cp ~ cp",
+          "hint": "Two layers separated by a comma: kick on every beat, clap on 2 and 4."
+        },
+        {
+          "target": "bd*4, [~ hh]*4",
+          "hint": "The hat is on the \"and\" of each beat: a rest then a hat, four times."
+        }
+      ]
+    },
+    "angle": {
+      "section": "6. < > : one per cycle",
+      "type": "ear",
+      "items": [
+        {
+          "answer": "bd sd bd <sd [sd sd]>",
+          "decoys": [
+            "bd sd bd [sd sd]",
+            "bd sd bd sd"
+          ]
+        },
+        {
+          "answer": "<bd sd> hh",
+          "decoys": [
+            "[bd sd] hh",
+            "bd hh"
+          ]
+        }
+      ]
+    },
+    "repeat-stretch": {
+      "section": "7. ! and @",
+      "type": "predict",
+      "items": [
+        {
+          "pattern": "bd!3 sd",
+          "steps": 4
+        },
+        {
+          "pattern": "bd@3 sd",
+          "steps": 4
+        },
+        {
+          "pattern": "bd*3 sd",
+          "steps": 6
+        }
+      ]
+    },
+    "euclid": {
+      "section": "9. ( , ) : Euclidean rhythms",
+      "type": "build",
+      "items": [
+        {
+          "target": "bd ~ ~ bd ~ ~ bd ~",
+          "hint": "Eight steps, three kicks. Write it out, or use the shortcut from this section."
+        },
+        {
+          "target": "bd(5,8)",
+          "hint": "Five kicks spread over eight steps. The shortcut is the easy way."
+        }
+      ]
+    },
+    "reading": {
+      "section": "Reading a line",
+      "type": "read",
+      "items": [
+        {
+          "line": "s(\"bd*4, ~ cp ~ cp\").bank(\"RolandTR909\").gain(0.8)",
+          "parts": [
+            {
+              "text": "s",
+              "kind": "fn",
+              "label": "s",
+              "title": "The sound function",
+              "detail": "Short for \"sound\". It plays the sounds named inside its parentheses."
+            },
+            {
+              "text": "(",
+              "kind": "punc",
+              "label": "( )",
+              "title": "Parentheses",
+              "detail": "Hand the function something to work with. Every function has them, and they always come in pairs."
+            },
+            {
+              "text": "\"",
+              "kind": "str",
+              "label": "\" \"",
+              "title": "Quotes",
+              "detail": "Everything between the quotes is mini-notation: the rhythm language."
+            },
+            {
+              "text": "bd*4",
+              "kind": "str",
+              "label": "bd*4",
+              "title": "Layer 1 (mini-notation)",
+              "detail": "Kick drum, four times per cycle: every beat."
+            },
+            {
+              "text": ", ",
+              "kind": "str",
+              "label": ",",
+              "title": "Layer separator (mini-notation)",
+              "detail": "Starts another layer that plays at the same time."
+            },
+            {
+              "text": "~ cp ~ cp",
+              "kind": "str",
+              "label": "~ cp ~ cp",
+              "title": "Layer 2 (mini-notation)",
+              "detail": "Rest, clap, rest, clap: clap on beats 2 and 4."
+            },
+            {
+              "text": "\"",
+              "kind": "str",
+              "label": "\" \"",
+              "title": "Closing quote",
+              "detail": "The rhythm ends here."
+            },
+            {
+              "text": ")",
+              "kind": "punc",
+              "label": "( )",
+              "title": "Closing parenthesis",
+              "detail": "The s(…) function is complete. A missing one of these is the most common error."
+            },
+            {
+              "text": ".bank",
+              "kind": "fn",
+              "label": ".bank",
+              "title": "A chained function",
+              "detail": "The dot says \"and then\". It takes what came before and changes it. This one picks the drum machine."
+            },
+            {
+              "text": "(\"RolandTR909\")",
+              "kind": "punc",
+              "label": "\"RolandTR909\"",
+              "title": "The machine name",
+              "detail": "A name, so it goes in quotes."
+            },
+            {
+              "text": ".gain",
+              "kind": "fn",
+              "label": ".gain",
+              "title": "Another chained function",
+              "detail": "Volume. 1 is normal, 0.5 is about half."
+            },
+            {
+              "text": "(0.8)",
+              "kind": "punc",
+              "label": "0.8",
+              "title": "A plain number",
+              "detail": "A single number needs no quotes."
+            }
+          ],
+          "quiz": [
+            {
+              "question": "Tap the part that decides when the clap plays.",
+              "correctParts": [
+                5
+              ],
+              "explanation": "<code>~ cp ~ cp</code> is the rhythm for the clap, inside the quotes."
+            },
+            {
+              "question": "Tap the part that chooses the drum machine.",
+              "correctParts": [
+                8,
+                9
+              ],
+              "explanation": "<code>.bank(\"RolandTR909\")</code> picks the machine. It sits outside the rhythm quotes."
+            },
+            {
+              "question": "Tap a function.",
+              "correctParts": [
+                0,
+                8,
+                10
+              ],
+              "explanation": "Functions are the names before parentheses: <code>s</code>, <code>.bank</code> and <code>.gain</code>."
+            },
+            {
+              "question": "Tap the character you'd most likely forget, and break the line.",
+              "correctParts": [
+                7
+              ],
+              "explanation": "The closing <code>)</code> of <code>s(…)</code>. It's easy to lose because it sits right after the closing quote."
+            },
+            {
+              "question": "Tap the part that makes the clap and kick play at the same time.",
+              "correctParts": [
+                4
+              ],
+              "explanation": "The comma inside the quotes stacks layers on top of each other."
+            }
+          ]
+        }
+      ]
+    },
+    "skeleton": {
+      "section": "Build: your first track skeleton",
+      "type": "fix",
+      "items": [
+        {
+          "broken": "s(\"bd sd bd sd\"",
+          "strudelSays": "SyntaxError: Unexpected token (1:15)",
+          "hint": "Count the parentheses. How many open, how many close?",
+          "sameRhythmAs": "bd sd bd sd",
+          "explanation": "Every <code>(</code> needs a <code>)</code>. The <code>(1:15)</code> in the message means line 1, character 15: the very end of the line. Strudel got there still waiting for a <code>)</code>, so the problem is at, or just before, that spot."
+        },
+        {
+          "broken": "s(\"bd*4\").bank(RolandTR909)",
+          "strudelSays": "ReferenceError: RolandTR909 is not defined",
+          "hint": "Look at the drum machine name.",
+          "sameRhythmAs": "bd*4",
+          "explanation": "Names need quotes too: <code>.bank(\"RolandTR909\")</code>. Without them, Strudel looks for something in the code called <code>RolandTR909</code> and finds nothing, so it says \"not defined\"."
+        },
+        {
+          "broken": "s(\"bd*4, hh*8\") bank(\"RolandTR909\")",
+          "strudelSays": "SyntaxError: Unexpected token (1:16)",
+          "hint": "How does one function connect to the next?",
+          "sameRhythmAs": "bd*4, hh*8",
+          "explanation": "Chained functions start with a dot. The dot means \"and then do this to it\"."
+        }
+      ]
+    }
+  },
+  "review": [
+    {
+      "type": "predict",
+      "item": {
+        "pattern": "bd [~ bd] sd ~",
+        "steps": 8
+      }
+    },
+    {
+      "type": "ear",
+      "item": {
+        "answer": "bd(3,8), hh*8",
+        "decoys": [
+          "bd*3, hh*8",
+          "bd(3,8), hh*4"
+        ]
+      }
+    },
+    {
+      "type": "build",
+      "item": {
+        "target": "bd*4, ~ cp ~ cp, [~ oh]*4",
+        "hint": "Three layers: four-on-the-floor kick, clap on 2 and 4, open hat on the off-beats."
+      }
+    },
+    {
+      "type": "fix",
+      "item": {
+        "broken": "S(\"bd sd, hh*8\")",
+        "strudelSays": "ReferenceError: S is not defined",
+        "hint": "Look at the very first character.",
+        "sameRhythmAs": "bd sd, hh*8",
+        "explanation": "Code is case-sensitive. <code>s</code> is the sound function; <code>S</code> is nothing."
+      }
+    },
+    {
+      "type": "type",
+      "item": {
+        "code": "s(\"bd(3,8), hh*8\")",
+        "gaps": "s(\"bd(▢,▢), hh*8\"▢",
+        "description": "Three kicks spread over eight steps (the tresillo), plus eighth-note hi-hats."
+      }
+    },
+    {
+      "type": "predict",
+      "item": {
+        "pattern": "bd!2 [sd sd]",
+        "steps": 6
+      }
+    },
+    {
+      "type": "ear",
+      "item": {
+        "answer": "bd*4, [~ hh]*4",
+        "decoys": [
+          "bd*4, hh*8",
+          "[~ bd]*4, hh*4"
+        ]
+      }
+    },
+    {
+      "type": "build",
+      "item": {
+        "target": "bd ~ [~ bd] sd",
+        "hint": "Four steps. Step 3 is split, with the kick on its second half."
+      }
+    },
+    {
+      "type": "fix",
+      "item": {
+        "broken": "s(bd*4, ~ cp ~ cp)",
+        "strudelSays": "SyntaxError: Unexpected token (1:13)",
+        "hint": "What goes around the rhythm?",
+        "sameRhythmAs": "bd*4, ~ cp ~ cp",
+        "explanation": "Without quotes, Strudel tries to read the rhythm as code. It gets as far as <code>bd*4,</code> (which happens to look like math) and stops at <code>~</code>, character 13, because <code>~</code> means nothing in code. The quotes tell Strudel \"this is a rhythm, not code\"."
+      }
+    }
+  ]
+}

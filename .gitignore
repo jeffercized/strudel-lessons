@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+.vercel/
+.env*
+spike/node_modules/
+playwright-report/
+test-results/
+.superpowers/
+.DS_Store
+
+# Planning notes, prototypes and spikes stay local (they are not part of the public source).
+docs/plans/
+docs/prototypes/
+spike/
+strudel-lessons-spec.md

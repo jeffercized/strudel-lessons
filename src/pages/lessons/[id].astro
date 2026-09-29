@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from 'astro:content';
+import DrillTemplates from '../../components/practice/DrillTemplates.astro';
+import Base from '../../layouts/Base.astro';
+import { neighbors, sortLessons } from '../../lib/lessons';
+import { missingChecks } from '../../lib/practice/checks';
+import { lessonSections } from '../../lib/progress';
+import { STRUDEL_REPL_INTEGRITY, STRUDEL_REPL_URL } from '../../lib/strudel-version';
+import '../../styles/practice.css';
+
+export async function getStaticPaths() {
+  const lessons = sortLessons(await getCollection('lessons'));
+  const practice = new Map((await getCollection('practice')).map((p) => [p.id, p.data]));
+  return lessons.map((entry) => {
+    const data = practice.get(entry.id);
+    // A check block whose id is not in the practice JSON fails the build. (In dev it shows a red box instead.)
+    const missing = missingChecks(entry.body ?? '', data?.checks);
+    if (missing.length > 0 && import.meta.env.PROD) {
+      throw new Error(`${entry.id}.md uses check ids that are not in ${entry.id}.practice.json: ${missing.join(', ')}`);
+    }
+    return { params: { id: entry.id }, props: { entry, lessons, checks: data?.checks ?? null, hasReview: (data?.review.length ?? 0) > 0 } };
+  });
+}
+const { entry, lessons, checks, hasReview } = Astro.props;
+const { Content, headings } = await render(entry);
+const { prev, next } = neighbors(lessons, entry.id);
+const sections = lessonSections(headings);
+---
+<Base title={`${entry.data.number}. ${entry.data.title}`}>
+  <script is:inline slot="head" src={STRUDEL_REPL_URL} integrity={STRUDEL_REPL_INTEGRITY} crossorigin="anonymous"></script>
+  <p><a href="/">← All lessons</a></p>
+  <article class="lesson" data-lesson={entry.id}>
+    <h1>{entry.data.number}. {entry.data.title}</h1>
+    <p class="goal"><strong>Goal:</strong> {entry.data.goal}</p>
+    {sections.length > 0 && (
+      <nav class="progress" aria-label="Lesson sections" data-progress={entry.id} data-sections={JSON.stringify(sections)}>
+        <div class="progress__top">
+          <span class="progress__count" data-progress-count>0 / {sections.length} sections</span>
+          <a class="button button--primary" data-progress-continue href={`#${sections[0].slug}`}>Continue where you left off →</a>
+        </div>
+        <ol class="progress__list">
+          {sections.map((s) => <li><a href={`#${s.slug}`} data-section-link={s.slug} title={s.title}>{s.short}</a></li>)}
+        </ol>
+      </nav>
+    )}
+    <Content />
+  </article>
+  {hasReview && <p class="practice-row"><a class="button button--primary" href={`/lessons/${entry.id}/practice/`}>Mixed review →</a></p>}
+  <div class="done-row"><button type="button" data-done-button={entry.id}>Mark lesson done</button></div>
+  <nav class="lesson-nav">
+    {prev ? <a class="button" href={`/lessons/${prev.id}/`}>← {prev.data.number}. {prev.data.title}</a> : <span />}
+    {next ? <a class="button" href={`/lessons/${next.id}/`}>{next.data.number}. {next.data.title} →</a> : <span />}
+  </nav>
+  {sections.length > 0 && (
+    <div class="reset-row" data-progress-reset>
+      <button type="button" class="link-button" data-reset="ask">Reset lesson progress</button>
+      <div class="reset-row__confirm" data-reset="confirm" hidden>
+        <span>Clear every "section complete" mark in this lesson? Your code edits stay.</span>
+        <button type="button" data-reset="yes">Yes, reset</button>
+        <button type="button" data-reset="cancel">Cancel</button>
+      </div>
+      <p class="reset-row__note" data-reset="note" role="status"></p>
+    </div>
+  )}
+  {checks && <script is:inline type="application/json" id="practice-data" set:html={JSON.stringify({ lesson: entry.id, checks }).replace(/</g, '\\u003c')} />}
+  <DrillTemplates />
+  <script>import '../../scripts/done.ts';</script>
+  <script>import '../../scripts/strudel-blocks.ts';</script>
+  <script>import '../../scripts/sections.ts';</script>
+  <script>import '../../scripts/checks.ts';</script>
+  <script>import '../../scripts/grid-play.ts';</script>
+</Base>
