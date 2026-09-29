@@ -110,3 +110,7 @@ blockquote p { margin: 0.4em 0; }
 .cycle-grid__status { margin: 6px 0 0; color: var(--danger); font-size: 0.85em; }
 .cycle-grid__status:empty { display: none; }
 .cycle-grid:has([data-grid="play"].is-on) { outline: 2px solid var(--try); }
+
+.site-footer { max-width: 720px; margin: 0 auto; padding: 16px 16px 32px; border-top: 1px solid var(--surface-2); color: var(--muted); font-size: 0.85em; }
+.site-footer a { color: var(--muted); display: inline-block; padding: 12px 0; }
+.site-footer a:hover { color: var(--text); }

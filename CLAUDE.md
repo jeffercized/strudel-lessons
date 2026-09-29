@@ -1,5 +1,8 @@
 # Strudel Lessons
 Strudel learning site. Astro static site; lessons are markdown in src/content/lessons/.
+- PUBLIC site (strudel.frequency.fyi) and PUBLIC repo, licensed AGPL-3.0-or-later (Strudel is AGPL). Every page footer links to the source.
+- Never commit secrets (`.env*` is ignored). No personal info in files, commit messages or PR text: no names, devices, local paths or emails.
+- Security headers live in vercel.json. Browser tests run under them (e2e/serve-dist.mjs); a new outside host (samples, scripts) must be added to the Content-Security-Policy or it will be blocked.
 - Lesson TEXT is authored outside this repo. Never rewrite teaching content; only fix code that won't run, and report it.
 - ```strudel blocks = playable editors (@strudel/repl, pinned version). ```grid blocks = static cycle diagrams using Strudel's parser.
 - Never use slider(): it doesn't work in every browser.
