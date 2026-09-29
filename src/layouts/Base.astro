@@ -2,6 +2,8 @@
 import '../styles/global.css';
 interface Props { title: string }
 const { title } = Astro.props;
+// Strudel is AGPL-3.0: anyone using the site must be able to get its source.
+const REPO = 'https://github.com/jeffercized/strudel-lessons';
 ---
 <!doctype html>
 <html lang="en">
@@ -15,5 +17,8 @@ const { title } = Astro.props;
   </head>
   <body>
     <main class="page"><slot /></main>
+    <footer class="site-footer">
+      Built with <a href="https://strudel.cc">Strudel</a> (<a href={`${REPO}/blob/main/LICENSE`}>AGPL-3.0</a>) · <a href={REPO}>Source code</a>
+    </footer>
   </body>
 </html>
