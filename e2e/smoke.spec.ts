@@ -41,3 +41,16 @@ test('every page links to the source code (AGPL)', async ({ page }) => {
     await expect(page.locator('.site-footer').getByRole('link', { name: 'AGPL-3.0' })).toBeVisible();
   }
 });
+
+test('every page has the tab icon and share-preview tags', async ({ page, request }) => {
+  for (const path of ['/', LESSON]) {
+    await page.goto(path);
+    for (const sel of ['link[rel="icon"][type="image/svg+xml"]', 'link[rel="apple-touch-icon"]']) {
+      const href = await page.locator(sel).getAttribute('href');
+      expect((await request.get(href!)).status()).toBe(200);
+    }
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute('content', await page.title());
+    await expect(page.locator('meta[property="og:url"]')).toHaveAttribute('content', `https://strudel.frequency.fyi${path}`);
+  }
+  expect((await request.get('/favicon.ico')).status()).toBe(200);
+});

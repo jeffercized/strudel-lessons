@@ -13,6 +13,14 @@ const REPO = 'https://github.com/jeffercized/strudel-lessons';
     <meta name="color-scheme" content="dark" />
     <meta name="robots" content="noindex" />
     <title>{title}</title>
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Link previews (iMessage etc.) show this icon small, beside the title. No og:image on purpose: that would show a big picture instead. -->
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Strudel Lessons" />
+    <meta property="og:title" content={title} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, Astro.site)} />
     <slot name="head" />
   </head>
   <body>
