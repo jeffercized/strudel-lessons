@@ -38,6 +38,7 @@ test('every page links to the source code (AGPL)', async ({ page }) => {
   for (const path of ['/', LESSON, '/lessons/lesson-01-cycles/practice/']) {
     await page.goto(path);
     await expect(page.locator('.site-footer').getByRole('link', { name: 'Source code' })).toHaveAttribute('href', 'https://github.com/jeffercized/strudel-lessons');
+    await expect(page.locator('.site-footer').getByRole('link', { name: 'Report a problem' })).toHaveAttribute('href', 'https://github.com/jeffercized/strudel-lessons/issues');
     await expect(page.locator('.site-footer').getByRole('link', { name: 'AGPL-3.0' })).toBeVisible();
   }
 });
